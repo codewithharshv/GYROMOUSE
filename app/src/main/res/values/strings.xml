@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Gyro Mouse</string>
+    <string name="title_sub">Wireless Motion Controller</string>
+    <string name="hint_ip">192.168.1.100</string>
+    <string name="hint_port">5005</string>
+    <string name="label_ip">PC IP Address</string>
+    <string name="label_port">Port Number</string>
+    <string name="btn_connect">Connect</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_disconnected">Not Connected</string>
+    <string name="mode_mouse">Mouse Mode</string>
+    <string name="mode_game">Game Mode</string>
+    <string name="btn_left_click">Left Click</string>
+    <string name="btn_right_click">Right Click</string>
+</resources>

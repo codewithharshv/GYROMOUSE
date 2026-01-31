@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <!-- Header / Top Bar -->
+    <ImageView
+        android:id="@+id/btn_settings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:tint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" 
+        android:contentDescription="Settings"/>
+        
+    <!-- Shoulder Buttons -->
+    <Button
+        android:id="@+id/btn_l_shoulder"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="L1"
+        android:backgroundTint="#AA333333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="60dp"/>
+
+    <Button
+        android:id="@+id/btn_r_shoulder"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="R1"
+        android:backgroundTint="#AA333333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"/>
+
+
+    <!-- Start / Select -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="100dp">
+        
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="SELECT"
+            android:textSize="10sp"
+            android:backgroundTint="#555555"
+            android:layout_marginEnd="20dp"/>
+            
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="START"
+            android:textSize="10sp"
+            android:backgroundTint="#555555"/>
+    </LinearLayout>
+
+
+    <!-- D-Pad (Left Side) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dpad_container"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:id="@+id/btn_up"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="▲"
+            android:backgroundTint="#666666"
+            app:layout_constraintBottom_toTopOf="@+id/btn_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" 
+            android:insetTop="0dp" android:insetBottom="0dp"/>
+
+        <Button
+            android:id="@+id/btn_down"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="▼"
+            android:backgroundTint="#666666"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+             android:insetTop="0dp" android:insetBottom="0dp"/>
+
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="◀"
+            android:backgroundTint="#666666"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_down"
+            app:layout_constraintEnd_toStartOf="@+id/btn_down"
+            app:layout_constraintTop_toTopOf="@+id/btn_up"
+             android:insetTop="0dp" android:insetBottom="0dp"/>
+
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:text="▶"
+            android:backgroundTint="#666666"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_down"
+            app:layout_constraintStart_toEndOf="@+id/btn_down"
+            app:layout_constraintTop_toTopOf="@+id/btn_up"
+             android:insetTop="0dp" android:insetBottom="0dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Left Analog Stick -->
+    <com.example.myapp.JoystickView
+        android:id="@+id/joystick_left"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dpad_container"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="-60dp"/>
+
+
+    <!-- Action Buttons (Right Side) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/action_buttons_container"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:id="@+id/btn_triangle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="▲"
+            android:textColor="#00FF00"
+            android:backgroundTint="#33000000"
+            app:strokeColor="#00FF00"
+            app:strokeWidth="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_x"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="X"
+            android:textColor="#2979FF"
+            android:backgroundTint="#33000000"
+            app:strokeColor="#2979FF"
+            app:strokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_square"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="■"
+            android:textColor="#FF4081"
+            android:backgroundTint="#33000000"
+             app:strokeColor="#FF4081"
+            app:strokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_x"
+            app:layout_constraintEnd_toStartOf="@+id/btn_x"
+            app:layout_constraintTop_toTopOf="@+id/btn_triangle" />
+
+        <Button
+            android:id="@+id/btn_circle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="●"
+            android:textColor="#FF1744"
+            android:backgroundTint="#33000000"
+             app:strokeColor="#FF1744"
+            app:strokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_x"
+            app:layout_constraintStart_toEndOf="@+id/btn_x"
+            app:layout_constraintTop_toTopOf="@+id/btn_triangle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Right Analog Stick -->
+    <com.example.myapp.JoystickView
+        android:id="@+id/joystick_right"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/action_buttons_container"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="-60dp"/>
+
+
+    <!-- Settings Overlay (Hidden by default) -->
+    <ScrollView
+        android:id="@+id/settings_overlay"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="#DD000000"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_tilt_control"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tilt Control"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Left Stick Sensitivity"
+                android:textColor="@color/white"
+                android:layout_marginTop="12dp"/>
+            <SeekBar
+                android:id="@+id/seek_sensitivity_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="200"
+                android:progress="100"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Right Stick Sensitivity"
+                android:textColor="@color/white"
+                android:layout_marginTop="12dp"/>
+            <SeekBar
+                android:id="@+id/seek_sensitivity_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="200"
+                android:progress="100"/>
+                
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tilt Sensitivity"
+                android:textColor="@color/white"
+                android:layout_marginTop="12dp"/>
+            <SeekBar
+                android:id="@+id/seek_sensitivity_tilt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="200"
+                android:progress="100"/>
+            
+            <Button
+                android:id="@+id/btn_customize_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Customize Layout"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/btn_close_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Customization Toolbar (Visible only when editing) -->
+    <LinearLayout
+        android:id="@+id/customization_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#DD222222"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            
+            <TextView
+                android:id="@+id/tv_selected_control"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select a control"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_reset_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Reset"
+                android:textSize="12sp"
+                android:backgroundTint="#FF5555"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btn_save_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Done"
+                android:textSize="12sp"
+                android:backgroundTint="#4CAF50"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Size"
+                android:textColor="@color/white"/>
+            <SeekBar
+                android:id="@+id/seek_size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="200"
+                android:progress="100"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="Opacity"
+                android:textColor="@color/white"/>
+            <SeekBar
+                android:id="@+id/seek_opacity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="100"
+                android:progress="100"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
