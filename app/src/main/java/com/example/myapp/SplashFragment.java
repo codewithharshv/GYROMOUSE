@@ -24,8 +24,11 @@ public class SplashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            if (getActivity() != null) {
-                ((MainActivity) getActivity()).navigateTo(new HomeFragment(), false);
+            if (isAdded() && getActivity() != null) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new HomeFragment())
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .commit();
             }
         }, 3000);
     }

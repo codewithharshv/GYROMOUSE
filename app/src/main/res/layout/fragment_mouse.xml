@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" 
-            android:rotation="180"/> <!-- Back arrow fake implementation -->
+            android:rotation="180"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,20 +37,48 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
             
-        <ImageView
-            android:id="@+id/btn_settings"
+        <!-- Touchpad Toggle Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_touchpad_toggle"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="12dp"
-            android:src="@drawable/ic_launcher_foreground"
-            app:tint="@color/white"
+            android:text="T"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@drawable/bg_rounded_input"
+            android:backgroundTint="#40FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Touch / Scroll Area -->
+    <!-- Main Touchpad Area (Full Screen) -->
+    <View
+        android:id="@+id/touchpad_area"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#10FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scroll_strip" />
+
+    <!-- Side Scroll Strip -->
+    <View
+        android:id="@+id/scroll_strip"
+        android:layout_width="60dp"
+        android:layout_height="0dp"
+        android:background="#30FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/btn_left"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Original Touch Pad (for Gyro Mode) -->
     <View
         android:id="@+id/touch_pad"
         android:layout_width="200dp"

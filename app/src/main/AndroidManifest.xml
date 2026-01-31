@@ -18,14 +18,23 @@
         android:theme="@style/Theme.Myapp">
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MouseActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".GameActivity"
+            android:screenOrientation="landscape"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

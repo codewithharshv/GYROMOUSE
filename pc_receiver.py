@@ -8,7 +8,7 @@ import time
 # Configuration
 UDP_IP = "0.0.0.0"
 UDP_PORT = 5005
-SENSITIVITY_MOUSE = 10
+SENSITIVITY_MOUSE = 2
 SENSITIVITY_SCROLL = 5
 
 # Global State for Continuous Motion

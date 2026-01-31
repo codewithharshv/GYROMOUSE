@@ -45,10 +45,10 @@ public class HomeFragment extends Fragment {
 
         view.findViewById(R.id.btn_connect).setOnClickListener(v -> connect());
         view.findViewById(R.id.btn_mode_mouse).setOnClickListener(v -> {
-            ((MainActivity) getActivity()).navigateTo(new MouseFragment(), true);
+            startActivity(new android.content.Intent(requireActivity(), MouseActivity.class));
         });
         view.findViewById(R.id.btn_mode_game).setOnClickListener(v -> {
-            ((MainActivity) getActivity()).navigateTo(new GameFragment(), true);
+            startActivity(new android.content.Intent(requireActivity(), GameActivity.class));
         });
 
         updateStatus();
