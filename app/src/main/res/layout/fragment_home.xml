@@ -16,10 +16,10 @@
     <!-- Header -->
     <ImageView
         android:id="@+id/img_logo_small"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_mouse_mode"
         app:tint="@color/white" />
 
     <TextView
@@ -133,38 +133,72 @@
     </androidx.cardview.widget.CardView>
 
     <!-- Mode Buttons -->
-    <androidx.appcompat.widget.AppCompatButton
+    <LinearLayout
         android:id="@+id/btn_mode_mouse"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="80dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/bg_rounded_input"
         android:backgroundTint="@color/white"
-        android:text="@string/mode_mouse"
-        android:textColor="@color/primary_blue"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:drawableStart="@drawable/ic_launcher_foreground"
-        android:drawableTint="@color/primary_blue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp" />
+        android:paddingEnd="24dp"
+        android:clickable="true"
+        android:focusable="true">
 
-    <androidx.appcompat.widget.AppCompatButton
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_mouse_mode"
+            app:tint="@color/primary_blue"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mode_mouse"
+            android:textColor="@color/primary_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+            
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/btn_mode_game"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/bg_rounded_input"
         android:backgroundTint="@color/white"
-        android:text="@string/mode_game"
-        android:textColor="@color/primary_blue"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:drawableStart="@drawable/ic_launcher_foreground"
-        android:drawableTint="@color/primary_blue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp" />
+        android:paddingEnd="24dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_gamepad_mode"
+            app:tint="@color/primary_blue"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/mode_game"
+            android:textColor="@color/primary_blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     </LinearLayout>
 

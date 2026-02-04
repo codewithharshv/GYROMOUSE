@@ -18,7 +18,7 @@ public class NetworkManager {
     private int serverPort;
     private DatagramSocket udpSocket;
     private ExecutorService executorService;
-    private boolean isConnected = false;
+    private volatile boolean isConnected = false;
 
     private NetworkManager() {
         executorService = Executors.newSingleThreadExecutor();
@@ -42,26 +42,56 @@ public class NetworkManager {
                     udpSocket.close();
                 }
                 udpSocket = new DatagramSocket();
+                udpSocket.setSoTimeout(2000); // 2 second timeout for handshake
 
-                // Send a UDP PING to notify server
-                String message = "PING";
-                byte[] data = message.getBytes();
+                // Send Handshake
+                JSONObject json = new JSONObject();
+                json.put("type", "handshake");
+                byte[] data = json.toString().getBytes();
+
                 DatagramPacket packet = new DatagramPacket(data, data.length, InetAddress.getByName(serverIp),
                         serverPort);
                 udpSocket.send(packet);
 
+                // Wait for response
+                byte[] buffer = new byte[1024];
+                DatagramPacket responsePacket = new DatagramPacket(buffer, buffer.length);
+                udpSocket.receive(responsePacket);
+
+                // If we get here, we received a response
+                String response = new String(responsePacket.getData(), 0, responsePacket.getLength());
+                Log.d(TAG, "Handshake response: " + response);
+
                 isConnected = true;
-                if (callback != null)
+                if (callback != null) {
                     callback.onSuccess();
+                }
                 Log.d(TAG, "Connected to " + ip + ":" + port);
+
+                // Reset timeout for normal operation (optional, or keep generic if needed)
+                udpSocket.setSoTimeout(0);
 
             } catch (Exception e) {
                 isConnected = false;
                 Log.e(TAG, "Connection failed", e);
-                if (callback != null)
+                if (udpSocket != null) {
+                    udpSocket.close();
+                    udpSocket = null;
+                }
+                if (callback != null) {
                     callback.onFailure(e.getMessage());
+                }
             }
         });
+    }
+
+    public void disconnect() {
+        isConnected = false;
+        if (udpSocket != null && !udpSocket.isClosed()) {
+            udpSocket.close();
+            udpSocket = null;
+        }
+        Log.d(TAG, "Disconnected");
     }
 
     public void sendMotion(float dx, float dy) {

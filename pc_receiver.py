@@ -172,6 +172,9 @@ while True:
                 handle_mouse_scroll(payload)
             elif msg_type == "keyboard":
                 handle_keyboard(payload)
+            elif msg_type == "handshake":
+                print(f"Handshake requested from {addr}")
+                sock.sendto(b"ACK", addr)
                 
         else:
             print(f"Received raw: {message}")

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class HomeFragment extends Fragment {
     private EditText etPort;
     private TextView tvStatus;
     private View statusDot;
+    private Button btnConnect;
     private NetworkManager networkManager;
 
     @Nullable
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment {
         etPort = view.findViewById(R.id.et_port);
         tvStatus = view.findViewById(R.id.tv_status);
         statusDot = view.findViewById(R.id.view_status_dot);
+        btnConnect = view.findViewById(R.id.btn_connect);
         networkManager = NetworkManager.getInstance();
 
         // Load saved IP/Port
@@ -43,7 +46,7 @@ public class HomeFragment extends Fragment {
         etIp.setText(prefs.getString("ip", "192.168.1.100"));
         etPort.setText(prefs.getString("port", "5005"));
 
-        view.findViewById(R.id.btn_connect).setOnClickListener(v -> connect());
+        btnConnect.setOnClickListener(v -> toggleConnection());
         view.findViewById(R.id.btn_mode_mouse).setOnClickListener(v -> {
             startActivity(new android.content.Intent(requireActivity(), MouseActivity.class));
         });
@@ -54,42 +57,51 @@ public class HomeFragment extends Fragment {
         updateStatus();
     }
 
-    private void connect() {
-        String ip = etIp.getText().toString();
-        String portStr = etPort.getText().toString();
+    private void toggleConnection() {
+        if (networkManager.isConnected()) {
+            // Disconnect
+            networkManager.disconnect();
+            updateStatus();
+        } else {
+            // Connect
+            String ip = etIp.getText().toString();
+            String portStr = etPort.getText().toString();
 
-        if (ip.isEmpty() || portStr.isEmpty()) {
-            Toast.makeText(getContext(), "Please enter IP and Port", Toast.LENGTH_SHORT).show();
-            return;
+            if (ip.isEmpty() || portStr.isEmpty()) {
+                Toast.makeText(getContext(), "Please enter IP and Port", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            SharedPreferences.Editor editor = requireActivity().getSharedPreferences("GyroPrefs", Context.MODE_PRIVATE)
+                    .edit();
+            editor.putString("ip", ip);
+            editor.putString("port", portStr);
+            editor.apply();
+
+            int port = Integer.parseInt(portStr);
+            tvStatus.setText("Connecting...");
+            btnConnect.setEnabled(false); // Prevent multiple clicks
+
+            networkManager.connect(ip, port, new NetworkManager.ConnectionCallback() {
+                @Override
+                public void onSuccess() {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Connected!", Toast.LENGTH_SHORT).show();
+                        btnConnect.setEnabled(true);
+                        updateStatus();
+                    });
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Connection Failed: " + error, Toast.LENGTH_LONG).show();
+                        btnConnect.setEnabled(true);
+                        updateStatus();
+                    });
+                }
+            });
         }
-
-        SharedPreferences.Editor editor = requireActivity().getSharedPreferences("GyroPrefs", Context.MODE_PRIVATE)
-                .edit();
-        editor.putString("ip", ip);
-        editor.putString("port", portStr);
-        editor.apply();
-
-        int port = Integer.parseInt(portStr);
-        tvStatus.setText("Connecting...");
-
-        networkManager.connect(ip, port, new NetworkManager.ConnectionCallback() { // Turbo correction: Fixed variable
-                                                                                   // name
-            @Override
-            public void onSuccess() {
-                requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "Connected!", Toast.LENGTH_SHORT).show();
-                    updateStatus();
-                });
-            }
-
-            @Override
-            public void onFailure(String error) {
-                requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(getContext(), "Connection Failed: " + error, Toast.LENGTH_LONG).show();
-                    updateStatus();
-                });
-            }
-        });
     }
 
     private void updateStatus() {
@@ -97,10 +109,12 @@ public class HomeFragment extends Fragment {
             tvStatus.setText(R.string.status_connected);
             tvStatus.setTextColor(getResources().getColor(R.color.btn_green, null));
             statusDot.setBackgroundTintList(getResources().getColorStateList(R.color.btn_green, null));
+            btnConnect.setText("DISCONNECT");
         } else {
             tvStatus.setText(R.string.status_disconnected);
             tvStatus.setTextColor(getResources().getColor(R.color.text_hint, null));
             statusDot.setBackgroundTintList(getResources().getColorStateList(R.color.text_hint, null));
+            btnConnect.setText("CONNECT");
         }
     }
 }
